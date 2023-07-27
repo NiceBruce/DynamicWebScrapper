@@ -83,7 +83,7 @@ public class SeleniumConfiguration {
                 .addArguments("--incognito");
 
         System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
-        WebDriver webDriver = new ChromeDriver();
+        WebDriver webDriver = new ChromeDriver(chromeOptions);
 //  ---------------------------------
         webDriver.get(url);
         return webDriver;
