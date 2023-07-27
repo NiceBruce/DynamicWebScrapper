@@ -1,0 +1,43 @@
+databaseChangeLog:
+- changeSet:
+    id: 1690479286817-1
+    author: borisdemin (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: gamesPK
+            name: id
+            type: BIGINT
+        - column:
+            name: b_koef
+            type: VARCHAR(255)
+        - column:
+            name: created_at
+            type: TIMESTAMP(6)
+        - column:
+            name: end_score
+            type: VARCHAR(255)
+        - column:
+            name: link
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: games_name
+            type: VARCHAR(100)
+        - column:
+            name: start_score
+            type: VARCHAR(255)
+        - column:
+            name: timer
+            type: VARCHAR(255)
+        - column:
+            name: tot_koef
+            type: VARCHAR(255)
+        tableName: games
+
