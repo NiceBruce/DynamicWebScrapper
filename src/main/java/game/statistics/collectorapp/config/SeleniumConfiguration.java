@@ -35,16 +35,15 @@ public class SeleniumConfiguration {
 
     @Bean
     public WebDriver driver() {
-//        WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
-//                .addArguments("--user-data-dir=%s".formatted("./ChromeProfile"))
-//                .addArguments("--headless")
-//                .addArguments("--process-per-site")
-//                .addArguments("--remote-allow-origins=*")
-//                .addArguments("--disable-dev-shm-usage")
-//                .addArguments("--no-sandbox")
-//                .addArguments("--incognito")
-//                .addArguments("--google-base-url=%s".formatted(url))
-//        );
+        WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
+                .addArguments("--headless")
+                .addArguments("--process-per-site")
+                .addArguments("--remote-allow-origins=*")
+                .addArguments("--disable-dev-shm-usage")
+                .addArguments("--no-sandbox")
+                .addArguments("--incognito")
+                .addArguments("--google-base-url=%s".formatted(url))
+        );
 
 //mozilla
 //        WebDriverManager wdm =  WebDriverManager.firefoxdriver()
@@ -57,8 +56,8 @@ public class SeleniumConfiguration {
 ////                .addArguments("--headless")
 //                .addArguments("--remote-allow-origins=*"));
 
-//        wdm.setup();
-//        WebDriver webDriver = wdm.create();
+        wdm.setup();
+        WebDriver webDriver = wdm.create();
 
 //        FirefoxOptions firefoxOptions = new FirefoxOptions()
 //                .setBinary(System.getenv("FIREFOX_BIN"))
@@ -71,19 +70,19 @@ public class SeleniumConfiguration {
 
 
 ////  --- WORKED SCHEMA FOR CHROME ---
-        ChromeOptions chromeOptions = new ChromeOptions()
-                .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
-                .addArguments("--remote-allow-origins=*")
-                .addArguments("--headless=new")
-                .addArguments("--process-per-site")
-                .addArguments("--use-gl=egl")
-                .addArguments("--disable-extensions")
-                .addArguments("--disable-dev-shm-usage")
-                .addArguments("--no-sandbox")
-                .addArguments("--incognito");
+//        ChromeOptions chromeOptions = new ChromeOptions()
+//                .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
+//                .addArguments("--remote-allow-origins=*")
+//                .addArguments("--headless=new")
+//                .addArguments("--process-per-site")
+//                .addArguments("--use-gl=egl")
+//                .addArguments("--disable-extensions")
+//                .addArguments("--disable-dev-shm-usage")
+//                .addArguments("--no-sandbox")
+//                .addArguments("--incognito");
 
-        System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
-        WebDriver webDriver = new ChromeDriver(chromeOptions);
+//        System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
+//        WebDriver webDriver = new ChromeDriver(chromeOptions);
 //  ---------------------------------
         webDriver.get(url);
         return webDriver;
