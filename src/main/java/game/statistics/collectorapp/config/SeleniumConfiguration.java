@@ -72,16 +72,16 @@ public class SeleniumConfiguration {
 ////  --- WORKED SCHEMA FOR CHROME ---
         ChromeOptions chromeOptions = new ChromeOptions()
                 .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
+                .addArguments("--headless")
                 .addArguments("--remote-allow-origins=*")
-                .addArguments("--headless=new")
-                .addArguments("--process-per-site")
-                .addArguments("--use-gl=egl")
-                .addArguments("--disable-extensions")
-                .addArguments("--disable-dev-shm-usage")
-                .addArguments("--no-sandbox")
-                .addArguments("--incognito");
+                .addArguments("--process-per-site");
+//                .addArguments("--use-gl=egl")
+//                .addArguments("--disable-extensions")
+//                .addArguments("--disable-dev-shm-usage")
+//                .addArguments("--no-sandbox")
+//                .addArguments("--incognito");
 
-        
+
         System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
         WebDriver webDriver = new ChromeDriver(chromeOptions);
 //  ---------------------------------
