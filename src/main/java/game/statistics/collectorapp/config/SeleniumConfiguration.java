@@ -70,6 +70,7 @@ public class SeleniumConfiguration {
 
 ////  --- WORKED SCHEMA FOR CHROME ---
         ChromeOptions chromeOptions = new ChromeOptions()
+                
                 .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
                 .addArguments("--remote-allow-origins=*")
                 .addArguments("--headless=new")
