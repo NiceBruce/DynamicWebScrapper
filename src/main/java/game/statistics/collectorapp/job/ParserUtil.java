@@ -262,7 +262,7 @@ public class ParserUtil {
                         .GET()
                         .build();
 
-            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-            httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
+//            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+//            httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
     }
 }

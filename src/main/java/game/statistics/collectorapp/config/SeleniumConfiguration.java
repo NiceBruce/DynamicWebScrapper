@@ -48,42 +48,45 @@ public class SeleniumConfiguration {
 //        );
 
 //mozilla
-//        WebDriverManager wdm =  WebDriverManager.firefoxdriver()
-//                .capabilities(new FirefoxOptions());
-    //                        .addArguments("-remote-debugging-port=9224")
-    //                        .addArguments("-headless"));
+//        WebDriverManager wdm =  WebDriverManager.firefoxdriver();
+//                .capabilities(new FirefoxOptions()
+////                            .addArguments("-remote-debugging-port=9224")
+//                            .addArguments("-headless"));
 
 //chrome
 //        WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
 ////                .addArguments("--headless")
 //                .addArguments("--remote-allow-origins=*"));
+
 //        wdm.setup();
 //        WebDriver webDriver = wdm.create();
-//        FirefoxOptions firefoxOptions = new FirefoxOptions()
-//                .setBinary(System.getenv("FIREFOX_BIN"))
-//                .addArguments("-headless");
-////                .addArguments("-disable-gpu")
-////                .addArguments("-no-sandbox");
+
+
+        FirefoxOptions firefoxOptions = new FirefoxOptions()
+                .setBinary(System.getenv("FIREFOX_BIN"))
+                .addArguments("-headless");
+//                .addArguments("-disable-gpu")
+//                .addArguments("-no-sandbox");
 //
-//        System.setProperty("webdriver.gecko.driver", System.getenv("GECKODRIVER_PATH"));
-//        WebDriver webDriver = new FirefoxDriver(firefoxOptions);
+        System.setProperty("webdriver.gecko.driver", System.getenv("GECKODRIVER_PATH"));
+        WebDriver webDriver = new FirefoxDriver(firefoxOptions);
 
 
 ////  --- WORKED SCHEMA FOR CHROME ---
-        ChromeOptions chromeOptions = new ChromeOptions()
-                .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
-                .addArguments("--remote-allow-origins=*")
-                .addArguments("--headless")
-                .addArguments("--process-per-site")
-                .addArguments("--use-gl=egl")
-                .addArguments("--disable-extensions")
-//                .addArguments("--disable-dev-shm-usage")
-//                .addArguments("--no-sandbox")
-                .addArguments("--incognito");
-    
-
-        System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
-        WebDriver webDriver = new ChromeDriver(chromeOptions);
+//        ChromeOptions chromeOptions = new ChromeOptions()
+//                .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
+//                .addArguments("--remote-allow-origins=*")
+//                .addArguments("--headless")
+//                .addArguments("--process-per-site")
+//                .addArguments("--use-gl=egl")
+//                .addArguments("--disable-extensions")
+////                .addArguments("--disable-dev-shm-usage")
+////                .addArguments("--no-sandbox")
+//                .addArguments("--incognito");
+//
+//
+//        System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
+//        WebDriver webDriver = new ChromeDriver(chromeOptions);
 //  ---------------------------------
         webDriver.get(url);
         return webDriver;
