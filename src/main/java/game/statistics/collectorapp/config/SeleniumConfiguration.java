@@ -75,11 +75,11 @@ public class SeleniumConfiguration {
                 .addArguments("--remote-allow-origins=*")
                 .addArguments("--headless")
                 .addArguments("--process-per-site")
-                .addArguments("--use-gl=egl");
-//                .addArguments("--disable-extensions")
+                .addArguments("--use-gl=egl")
+                .addArguments("--disable-extensions")
 //                .addArguments("--disable-dev-shm-usage")
 //                .addArguments("--no-sandbox")
-//                .addArguments("--incognito");
+                .addArguments("--incognito");
     
 
         System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
