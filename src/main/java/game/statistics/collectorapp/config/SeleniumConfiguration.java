@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -61,16 +62,17 @@ public class SeleniumConfiguration {
 //        wdm.setup();
 //        WebDriver webDriver = wdm.create();
 
-
+////  --- WORKED SCHEMA FOR FIREFOX ---
         FirefoxOptions firefoxOptions = new FirefoxOptions()
                 .setBinary(System.getenv("FIREFOX_BIN"))
-                .addArguments("-headless");
-//                .addArguments("-disable-gpu")
-//                .addArguments("-no-sandbox");
-//
-        System.setProperty("webdriver.gecko.driver", System.getenv("GECKODRIVER_PATH"));
-        WebDriver webDriver = new FirefoxDriver(firefoxOptions);
+                .addArguments("-headless")
+                .addArguments("-disable-gpu")
+                .addArguments("-no-sandbox");
 
+        System.setProperty("webdriver.gecko.driver", System.getenv("GECKODRIVER_PATH"));
+        firefoxOptions.setCapability("marionette", true);
+        WebDriver webDriver = new FirefoxDriver(firefoxOptions);
+//
 
 ////  --- WORKED SCHEMA FOR CHROME ---
 //        ChromeOptions chromeOptions = new ChromeOptions()
