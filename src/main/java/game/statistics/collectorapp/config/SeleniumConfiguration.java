@@ -72,8 +72,8 @@ public class SeleniumConfiguration {
 ////  --- WORKED SCHEMA FOR CHROME ---
         ChromeOptions chromeOptions = new ChromeOptions()
                 .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
-                .addArguments("--headless")
                 .addArguments("--remote-allow-origins=*")
+                .addArguments("--headless")
                 .addArguments("--process-per-site");
 //                .addArguments("--use-gl=egl")
 //                .addArguments("--disable-extensions")
