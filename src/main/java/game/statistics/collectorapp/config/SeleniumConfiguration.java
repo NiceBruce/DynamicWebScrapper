@@ -36,13 +36,14 @@ public class SeleniumConfiguration {
     @Bean
     public WebDriver driver() {
         WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
-                .addArguments("--headless")
-                .addArguments("--process-per-site")
                 .addArguments("--remote-allow-origins=*")
+                .addArguments("--headless=new")
+                .addArguments("--process-per-site")
+                .addArguments("--use-gl=egl")
+                .addArguments("--disable-extensions")
                 .addArguments("--disable-dev-shm-usage")
                 .addArguments("--no-sandbox")
                 .addArguments("--incognito")
-                .addArguments("--google-base-url=%s".formatted(url))
         );
 
 //mozilla
