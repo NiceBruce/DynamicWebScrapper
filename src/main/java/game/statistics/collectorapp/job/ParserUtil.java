@@ -4,12 +4,10 @@ import game.statistics.collectorapp.model.Game;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 
 
 import java.io.IOException;
@@ -35,7 +33,6 @@ public class ParserUtil {
 
         Document doc  = null;
         try {
-            System.out.println(linkToStatistics);
             doc = Jsoup.connect(linkToStatistics).get();
         } catch (IOException exceptionMessage) {
             LOGGER.error("ВНИМАНИЕ! НЕ ПРЕДСТАВЛЕНА СТАТИСТИКА ПО ИГРАМ", new RuntimeException(exceptionMessage));
@@ -88,7 +85,7 @@ public class ParserUtil {
         try {
             return game.findElement(By.tagName("app-event-status-message")).findElement(By.tagName("span")).getText().equals("Приём пари временно остановлен");
         } catch (NoSuchElementException exceptionMessage) {
-            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ ОКОНЧАНИЯ ИГРЫ");
+            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ ОКОНЧАНИЯ ИГРЫ: %s".formatted(getGameName(game)));
         }
 
         return false;
@@ -98,7 +95,8 @@ public class ParserUtil {
         List<WebElement> games = new ArrayList<>();
 
         try {
-            games = driver.findElements(By.tagName("app-event-unit"));
+            games = driver.findElements(By.className("line__champ"));
+//            games = driver.findElements(By.tagName("app-event-unit"));
         } catch (NoSuchElementException exceptionMessage) {
             LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕНЫ ВЭБ-ЭЛЕМЕНТЫ ИГР", new Exception(exceptionMessage));
         }
@@ -111,7 +109,7 @@ public class ParserUtil {
         try {
             gameName = game.findElement(By.className("line-event__name")).getText();
         } catch (NoSuchElementException exceptionMessage) {
-            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ НАЗВАНИЯ ИГРЫ", new Exception(exceptionMessage));
+            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ НАЗВАНИЯ ИГРЫ: %s".formatted(getGameName(game)));
         }
 
         return gameName;
@@ -130,7 +128,7 @@ public class ParserUtil {
         try {
             gameScore = game.findElement(By.className("line-event__score-total")).getText();
         } catch (NoSuchElementException exceptionMessage) {
-            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ СЧЕТА ИГРЫ", new Exception(exceptionMessage));
+            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ СЧЕТА ИГРЫ: %s".formatted(getGameName(game)));
         }
 
         return gameScore;
@@ -141,10 +139,21 @@ public class ParserUtil {
         try {
             gameTimer = game.findElement(By.className("line-event__time-timer")).getText();
         } catch (NoSuchElementException exceptionMessage) {
-            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ ВРЕМЕНИ ИГРЫ", new Exception(exceptionMessage));
+            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ ВРЕМЕНИ ИГРЫ: %s".formatted(getGameName(game)));
         }
 
         return gameTimer;
+    }
+
+    public String getLeague(WebElement game) {
+        String league = "";
+        try {
+            league = game.findElement(By.className("line-champ__header-link")).getText();
+        } catch (NoSuchElementException exceptionMessage) {
+            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ ЛИГИ ТЕКУЩЕЙ ИГРЫ: %s".formatted(getGameName(game)));
+        }
+
+        return league;
     }
 
     public String getLinkToStatistics(WebElement game) {
@@ -163,7 +172,7 @@ public class ParserUtil {
         try {
             currentLinkToGame = game.findElement(By.className("line-event__name")).findElement(By.tagName("a")).getAttribute("href");
         } catch (NoSuchElementException exceptionMessage) {
-            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕНА ССЫЛКА НА СТРАНИЦУ ТЕКУЩЕЙ ИГРЫ", new Exception(exceptionMessage));
+            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕНА ССЫЛКА НА СТРАНИЦУ ТЕКУЩЕЙ ИГРЫ: %s".formatted(getGameName(game)));
         }
 
         return currentLinkToGame;
@@ -177,7 +186,7 @@ public class ParserUtil {
                     .findElements(By.xpath(".//*"))
                     .get(7).getText();
         } catch (NoSuchElementException exceptionMessage) {
-            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ТОТ-КОЭФИЦИЕНТ ТЕКУЩЕЙ ИГРЫ", new Exception(exceptionMessage));
+            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ТОТ-КОЭФИЦИЕНТ ТЕКУЩЕЙ ИГРЫ: %s".formatted(getGameName(game)));
         }
 
         return totKoef;
@@ -191,17 +200,34 @@ public class ParserUtil {
                     .findElements(By.xpath(".//*"))
                     .get(9).getText();
         } catch (NoSuchElementException exceptionMessage) {
-            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕНА ССЫЛКА НА СТРАНИЦУ ТЕКУЩЕЙ ИГРЫ", new Exception(exceptionMessage));
+            LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН Б-КОЭФИЦИЕНТ ТЕКУЩЕЙ ИГРЫ: %s".formatted(getGameName(game)));
         }
 
         return coefficientB;
     }
 
-    public boolean isValidGame(String gameTimer, String gameName, String gameScore, String linkToStatistics) {
+    public boolean isValidGame(String gameTimer, String gameName, String gameScore, String linkToStatistics, String legue) {
         return (gameTimer.length() != 0 && !gameTimer.equals("Перерыв"))
 //                && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70) && gameScore.equals("0:0")
                 && (((Integer.parseInt(gameTimer.substring(0, 2)) >= 65) && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70)) && gameScore.equals("0:0"))
-                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 10);
+                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 10)
+                && (!legue.toLowerCase().contains("киберфутбол") && !legue.toLowerCase().contains("статистика"));
+    }
+
+    public boolean isElementDisplayed(WebElement game) {
+        try {
+            if (game.isDisplayed()) {
+                return true;
+            } else {
+                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ: %s ПРЕДСТАВЛЕН В DOM - НО НЕ ОТОБРАЖАЕТСЯ!".formatted(getGameName(game)));
+            }
+
+        } catch (StaleElementReferenceException exceptionMessage) {
+            LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ: %s НЕ ПРЕДСТАВЛЕН В DOM!".formatted(getGameName(game)));
+            return false;
+        }
+
+        return false;
     }
 
     public String printCurrentGame(WebElement game) throws UnsupportedEncodingException {
@@ -233,6 +259,5 @@ public class ParserUtil {
 
             httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
             httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
-
     }
 }

@@ -31,7 +31,7 @@ public class ParseTask {
         List<WebElement> games = util.getGames(driver);
 
         for (WebElement game : games) {
-            if (game.isDisplayed()) {
+            if (util.isElementDisplayed(game)) {
                 String name = util.getGameName(game);
 
                 if (gameService.isExists(name) && util.getStatusGame(game)) {
@@ -41,7 +41,7 @@ public class ParseTask {
                     String score = util.getGameScore(game);
                     String linkToStatistics = util.getLinkToStatistics(game);
 
-                    if (util.isValidGame(timer, name, score, linkToStatistics)) {
+                    if (util.isValidGame(timer, name, score, linkToStatistics, util.getLeague(game))) {
                         if (!gameService.isExists(name)) {
                             gameService.saveGame(Game.builder()
                                     .name(name)
