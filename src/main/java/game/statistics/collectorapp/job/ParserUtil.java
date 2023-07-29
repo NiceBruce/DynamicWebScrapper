@@ -219,11 +219,16 @@ public class ParserUtil {
             if (game.isDisplayed()) {
                 return true;
             } else {
-                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ: %s ПРЕДСТАВЛЕН В DOM - НО НЕ ОТОБРАЖАЕТСЯ!");
+                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ ПРЕДСТАВЛЕН В DOM - НО НЕ ОТОБРАЖАЕТСЯ!");
             }
 
-        } catch (StaleElementReferenceException exceptionMessage) {
-            LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ: %s НЕ ПРЕДСТАВЛЕН В DOM!");
+        } catch (Exception e) {
+            if (e instanceof StaleElementReferenceException) {
+                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ НЕ ПРЕДСТАВЛЕН В DOM! - %s".formatted(e.getMessage()));
+            } else if (e instanceof WebDriverException) {
+                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ НЕ ПРЕДСТАВЛЕН В DOM! - %s".formatted(e.getMessage()));
+            }
+
             return false;
         }
 
