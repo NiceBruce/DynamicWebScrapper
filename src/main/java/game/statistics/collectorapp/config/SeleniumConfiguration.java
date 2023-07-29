@@ -74,12 +74,12 @@ public class SeleniumConfiguration {
                 .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
                 .addArguments("--remote-allow-origins=*")
                 .addArguments("--headless")
-                .addArguments("--process-per-site");
+                .addArguments("--process-per-site")
 //                .addArguments("--use-gl=egl")
 //                .addArguments("--disable-extensions")
 //                .addArguments("--disable-dev-shm-usage")
 //                .addArguments("--no-sandbox")
-//                .addArguments("--incognito");
+                .addArguments("--incognito");
 
 
         System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
