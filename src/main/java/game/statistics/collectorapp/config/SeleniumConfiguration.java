@@ -65,12 +65,9 @@ public class SeleniumConfiguration {
 ////  --- WORKED SCHEMA FOR FIREFOX ---
         FirefoxOptions firefoxOptions = new FirefoxOptions()
                 .setBinary(System.getenv("FIREFOX_BIN"))
-                .addArguments("-headless")
-                .addArguments("-disable-gpu")
-                .addArguments("-no-sandbox");
+                .addArguments("-headless");
 
         System.setProperty("webdriver.gecko.driver", System.getenv("GECKODRIVER_PATH"));
-        firefoxOptions.setCapability("marionette", true);
         WebDriver webDriver = new FirefoxDriver(firefoxOptions);
 //
 
