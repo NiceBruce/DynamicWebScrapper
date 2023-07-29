@@ -56,7 +56,6 @@ public class SeleniumConfiguration {
 //        WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
 ////                .addArguments("--headless")
 //                .addArguments("--remote-allow-origins=*"));
-
         wdm.setup();
         WebDriver webDriver = wdm.create();
 //        FirefoxOptions firefoxOptions = new FirefoxOptions()
