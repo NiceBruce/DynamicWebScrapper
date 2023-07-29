@@ -59,7 +59,6 @@ public class SeleniumConfiguration {
 
         wdm.setup();
         WebDriver webDriver = wdm.create();
-
 //        FirefoxOptions firefoxOptions = new FirefoxOptions()
 //                .setBinary(System.getenv("FIREFOX_BIN"))
 //                .addArguments("-headless");
