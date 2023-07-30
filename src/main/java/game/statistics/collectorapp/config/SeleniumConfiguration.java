@@ -55,12 +55,19 @@ public class SeleniumConfiguration {
 //                            .addArguments("-headless"));
 
 //chrome
-//        WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
-////                .addArguments("--headless")
-//                .addArguments("--remote-allow-origins=*"));
+        WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
+                .addArguments("--headless")
+                .addArguments("--remote-allow-origins=*")
+                .addArguments("--headless")
+                .addArguments("--process-per-site")
+                .addArguments("--use-gl=egl")
+                .addArguments("--disable-extensions")
+                .addArguments("--disable-dev-shm-usage")
+                .addArguments("--no-sandbox")
+                .addArguments("--incognito"));
 
-//        wdm.setup();
-//        WebDriver webDriver = wdm.create();
+        wdm.setup();
+        WebDriver webDriver = wdm.create();
 
 ////  --- WORKED SCHEMA FOR FIREFOX ---
 //        FirefoxOptions firefoxOptions = new FirefoxOptions()
@@ -72,19 +79,19 @@ public class SeleniumConfiguration {
 //
 
 ////  --- WORKED SCHEMA FOR CHROME ---
-        ChromeOptions chromeOptions = new ChromeOptions()
-                .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
-                .addArguments("--remote-allow-origins=*")
-                .addArguments("--headless")
-                .addArguments("--process-per-site")
-                .addArguments("--use-gl=egl")
-                .addArguments("--disable-extensions")
-//                .addArguments("--disable-dev-shm-usage")
-                .addArguments("--no-sandbox")
-                .addArguments("--incognito");
-
-        System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
-        WebDriver webDriver = new ChromeDriver(chromeOptions);
+//        ChromeOptions chromeOptions = new ChromeOptions()
+//                .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
+//                .addArguments("--remote-allow-origins=*")
+//                .addArguments("--headless")
+//                .addArguments("--process-per-site")
+//                .addArguments("--use-gl=egl")
+//                .addArguments("--disable-extensions")
+////                .addArguments("--disable-dev-shm-usage")
+//                .addArguments("--no-sandbox")
+//                .addArguments("--incognito");
+//
+//        System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
+//        WebDriver webDriver = new ChromeDriver(chromeOptions);
 //  ---------------------------------
         webDriver.get(url);
         return webDriver;
