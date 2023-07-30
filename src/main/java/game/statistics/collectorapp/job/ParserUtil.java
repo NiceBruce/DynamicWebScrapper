@@ -228,11 +228,11 @@ public class ParserUtil {
                 return false;
             }
         } catch (Exception e) {
-            if (e instanceof StaleElementReferenceException) {
-                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ НЕ ПРЕДСТАВЛЕН В DOM! - %s".formatted(e.getMessage()));
-            } else if (e instanceof WebDriverException) {
-                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ НЕ ПРЕДСТАВЛЕН В DOM! - %s".formatted(e.getMessage()));
-            }
+//            if (e instanceof StaleElementReferenceException) {
+//                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ НЕ ПРЕДСТАВЛЕН В DOM! - %s".formatted(e.getMessage()));
+//            } else if (e instanceof WebDriverException) {
+//                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ НЕ ПРЕДСТАВЛЕН В DOM! - %s".formatted(e.getMessage()));
+//            }
 
             return false;
         }
