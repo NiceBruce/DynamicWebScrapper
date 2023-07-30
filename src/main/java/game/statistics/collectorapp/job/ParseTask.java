@@ -5,12 +5,15 @@ import game.statistics.collectorapp.repository.GameRepository;
 import game.statistics.collectorapp.service.GameService;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.time.Duration;
 import java.util.List;
 
 @Component
@@ -26,8 +29,9 @@ public class ParseTask {
     @Autowired
     WebDriver driver;
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 4000)
     public void parseGames() throws URISyntaxException, UnsupportedEncodingException {
+
         List<WebElement> games = util.getGames(driver);
 
         for (WebElement game : games) {

@@ -5,6 +5,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
@@ -18,6 +20,7 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +98,9 @@ public class ParserUtil {
         List<WebElement> games = new ArrayList<>();
 
         try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+//            games = new WebDriverWait(driver, Duration.ofMillis(3000))
+//                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("line__champ")));
             games = driver.findElements(By.className("line__champ"));
 //            games = driver.findElements(By.tagName("app-event-unit"));
         } catch (NoSuchElementException exceptionMessage) {
@@ -219,9 +225,8 @@ public class ParserUtil {
             if (game.isDisplayed()) {
                 return true;
             } else {
-                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ ПРЕДСТАВЛЕН В DOM - НО НЕ ОТОБРАЖАЕТСЯ!");
+                return false;
             }
-
         } catch (Exception e) {
             if (e instanceof StaleElementReferenceException) {
                 LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ НЕ ПРЕДСТАВЛЕН В DOM! - %s".formatted(e.getMessage()));
@@ -231,8 +236,6 @@ public class ParserUtil {
 
             return false;
         }
-
-        return false;
     }
 
     public String printCurrentGame(WebElement game) throws UnsupportedEncodingException {
