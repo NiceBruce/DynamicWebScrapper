@@ -98,7 +98,7 @@ public class ParserUtil {
         List<WebElement> games = new ArrayList<>();
 
         try {
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 //            games = new WebDriverWait(driver, Duration.ofMillis(3000))
 //                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("line__champ")));
             games = driver.findElements(By.className("line__champ"));
