@@ -216,9 +216,9 @@ public class ParserUtil {
     }
     public boolean isValidGame(String gameTimer, String gameName, String gameScore, String linkToStatistics) {
         return (gameTimer.length() != 0 && !gameTimer.equals("Перерыв"))
-                && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70) && gameScore.equals("0:0")
-//                && (((Integer.parseInt(gameTimer.substring(0, 2)) >= 65) && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70)) && gameScore.equals("0:0"))
-                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 5);
+//                && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70) && gameScore.equals("0:0")
+                && (((Integer.parseInt(gameTimer.substring(0, 2)) >= 65) && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70)) && gameScore.equals("0:0"))
+                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 10);
     }
 
     public boolean isElementDisplayed(WebElement game) {
