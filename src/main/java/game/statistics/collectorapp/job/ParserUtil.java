@@ -97,7 +97,7 @@ public class ParserUtil {
         List<WebElement> games = new ArrayList<>();
 
         try {
-            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+//            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
 //            games = new WebDriverWait(driver, Duration.ofMillis(3000))
 //                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("line__champ")));
             games = driver.findElements(By.className("line__champ"));
@@ -216,9 +216,9 @@ public class ParserUtil {
     }
     public boolean isValidGame(String gameTimer, String gameName, String gameScore, String linkToStatistics) {
         return (gameTimer.length() != 0 && !gameTimer.equals("Перерыв"))
-//                && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70) && gameScore.equals("0:0")
-                && (((Integer.parseInt(gameTimer.substring(0, 2)) >= 65) && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70)) && gameScore.equals("0:0"))
-                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 10);
+                && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70) && gameScore.equals("0:0")
+//                && (((Integer.parseInt(gameTimer.substring(0, 2)) >= 65) && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70)) && gameScore.equals("0:0"))
+                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 5);
     }
 
     public boolean isElementDisplayed(WebElement game) {
