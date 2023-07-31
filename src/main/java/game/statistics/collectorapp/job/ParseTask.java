@@ -25,7 +25,7 @@ public class ParseTask {
     @Autowired
     WebDriver driver;
 
-    @Scheduled(fixedDelay = 2000)
+    @Scheduled(fixedDelay = 2500)
     public void parseGames() throws URISyntaxException, UnsupportedEncodingException {
 
         List<WebElement> games = util.getGames(driver);
