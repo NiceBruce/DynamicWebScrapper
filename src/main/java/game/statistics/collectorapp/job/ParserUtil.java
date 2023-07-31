@@ -89,16 +89,15 @@ public class ParserUtil {
             return game.findElement(By.tagName("app-event-status-message")).findElement(By.tagName("span")).getText().equals("Приём пари временно остановлен");
         } catch (NoSuchElementException exceptionMessage) {
             LOGGER.error("ВНИМАНИЕ! НЕ НАЙДЕН ВЭБ-ЭЛЕМЕНТ ОКОНЧАНИЯ ИГРЫ: %s".formatted(getGameName(game)));
+            return false;
         }
-
-        return false;
     }
 
     public List <WebElement>getGames(WebDriver driver) {
         List<WebElement> games = new ArrayList<>();
 
         try {
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
 //            games = new WebDriverWait(driver, Duration.ofMillis(3000))
 //                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("line__champ")));
             games = driver.findElements(By.className("line__champ"));
@@ -212,12 +211,14 @@ public class ParserUtil {
         return coefficientB;
     }
 
-    public boolean isValidGame(String gameTimer, String gameName, String gameScore, String linkToStatistics, String legue) {
+    public boolean isNotCyberAndStatisticsGame(String legue) {
+        return (!legue.toLowerCase().contains("киберфутбол") && !legue.toLowerCase().contains("статистика"));
+    }
+    public boolean isValidGame(String gameTimer, String gameName, String gameScore, String linkToStatistics) {
         return (gameTimer.length() != 0 && !gameTimer.equals("Перерыв"))
 //                && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70) && gameScore.equals("0:0")
                 && (((Integer.parseInt(gameTimer.substring(0, 2)) >= 65) && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70)) && gameScore.equals("0:0"))
-                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 10)
-                && (!legue.toLowerCase().contains("киберфутбол") && !legue.toLowerCase().contains("статистика"));
+                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 10);
     }
 
     public boolean isElementDisplayed(WebElement game) {

@@ -5,15 +5,11 @@ import game.statistics.collectorapp.repository.GameRepository;
 import game.statistics.collectorapp.service.GameService;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.time.Duration;
 import java.util.List;
 
 @Component
@@ -29,24 +25,23 @@ public class ParseTask {
     @Autowired
     WebDriver driver;
 
-    @Scheduled(fixedDelay = 2000)
+    @Scheduled(fixedDelay = 1000)
     public void parseGames() throws URISyntaxException, UnsupportedEncodingException {
 
         List<WebElement> games = util.getGames(driver);
 
         for (WebElement game : games) {
             if (util.isElementDisplayed(game)) {
-                String name = util.getGameName(game);
+                if (util.isNotCyberAndStatisticsGame(util.getLeague(game))) {
 
-                if (gameService.isExists(name) && util.getStatusGame(game)) {
-                    gameService.updateGameScore(name, util.getGameScore(game));
-                } else {
-                    String timer = util.getGameTimer(game);
-                    String score = util.getGameScore(game);
-                    String linkToStatistics = util.getLinkToStatistics(game);
+                    String name = util.getGameName(game);
 
-                    if (util.isValidGame(timer, name, score, linkToStatistics, util.getLeague(game))) {
-                        if (!gameService.isExists(name)) {
+                    if (!gameService.isExists(name)) {
+                        String timer = util.getGameTimer(game);
+                        String score = util.getGameScore(game);
+                        String linkToStatistics = util.getLinkToStatistics(game);
+
+                        if (util.isValidGame(timer, name, score, linkToStatistics)) {
                             gameService.saveGame(Game.builder()
                                     .name(name)
                                     .startScore(score)
@@ -57,6 +52,10 @@ public class ParseTask {
                                     .build());
 
                             util.sendToTelegramm(game);
+                        }
+                    } else {
+                        if (util.getStatusGame(game)) {
+                            gameService.updateGameScore(name, util.getGameScore(game));
                         }
                     }
                 }
