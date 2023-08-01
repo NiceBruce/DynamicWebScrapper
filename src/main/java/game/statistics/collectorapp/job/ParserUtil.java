@@ -17,6 +17,7 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +94,7 @@ public class ParserUtil {
         List<WebElement> games = new ArrayList<>();
 
         try {
-//            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
 //            games = new WebDriverWait(driver, Duration.ofMillis(3000))
 //                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("line__champ")));
             games = driver.findElements(By.className("line__champ"));
