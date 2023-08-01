@@ -49,15 +49,21 @@ public class SeleniumConfiguration {
 
 //chrome
         WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
-                .addArguments("--headless")
-                .addArguments("--remote-allow-origins=*")
-                .addArguments("--headless")
-                .addArguments("--process-per-site")
-                .addArguments("--use-gl=egl")
-                .addArguments("--disable-extensions")
-                .addArguments("--disable-dev-shm-usage")
-                .addArguments("--no-sandbox")
-                .addArguments("--incognito"));
+                        .addArguments("--remote-allow-origins=*")
+                        .addArguments("--ignore-certificate-errors")
+                        .addArguments("--test-type")
+                        .addArguments("--headless")
+                        .addArguments("--incognito")
+                        .addArguments("--verbose"));
+//                .addArguments("--headless")
+//                .addArguments("--remote-allow-origins=*")
+//                .addArguments("--headless")
+//                .addArguments("--process-per-site")
+//                .addArguments("--use-gl=egl")
+//                .addArguments("--disable-extensions")
+//                .addArguments("--disable-dev-shm-usage")
+//                .addArguments("--no-sandbox")
+//                .addArguments("--incognito"));
 
         wdm.setup();
         WebDriver webDriver = wdm.create();
