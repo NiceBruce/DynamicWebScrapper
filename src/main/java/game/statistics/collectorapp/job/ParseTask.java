@@ -10,7 +10,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ParseTask {
@@ -25,18 +27,22 @@ public class ParseTask {
     @Autowired
     WebDriver driver;
 
+    Set<String> gamesName = new HashSet<>();
+
     @Scheduled(fixedDelay = 2500)
     public void parseGames() throws URISyntaxException, UnsupportedEncodingException {
 
+        gamesName = gameService.getGamesFromTheLastTwoHours();
         List<WebElement> games = util.getGames(driver);
 
         for (WebElement game : games) {
             if (util.isElementDisplayed(game)) {
+
                 if (util.isNotCyberAndStatisticsGame(util.getLeague(game))) {
 
                     String name = util.getGameName(game);
 
-                    if (!gameService.isExists(name)) {
+                    if (!gamesName.contains(name)) { //gameService.isExists(name)
                         String timer = util.getGameTimer(game);
                         String score = util.getGameScore(game);
                         String linkToStatistics = util.getLinkToStatistics(game);

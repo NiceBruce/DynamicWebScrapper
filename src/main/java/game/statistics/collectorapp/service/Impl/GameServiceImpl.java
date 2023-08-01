@@ -6,7 +6,10 @@ import game.statistics.collectorapp.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -30,6 +33,14 @@ public class GameServiceImpl implements GameService {
     @Override
     public boolean isExists(String gameName) {
         return repository.existsGameByName(gameName);
+    }
+
+    @Override
+    public Set<String> getGamesFromTheLastTwoHours() {
+        List<Game> games =  getAllGames();
+        return games.stream()
+                .map(game -> game.getName())
+                .collect(Collectors.toSet());
     }
 
     @Override
