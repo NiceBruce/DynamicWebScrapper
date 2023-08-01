@@ -29,11 +29,11 @@ public class ParseTask {
 
     Set<String> gamesName = new HashSet<>();
 
-    @Scheduled(fixedDelay = 2000)
+    @Scheduled(fixedDelay = 3000)
     public void parseGames() throws URISyntaxException, UnsupportedEncodingException {
         driver.navigate().refresh();
-        gamesName = gameService.getGamesFromTheLastTwoHours();
-        System.out.println("LENGTH OF gamesName: " + gamesName.size());
+
+//        gamesName = gameService.getGamesFromTheLastTwoHours();
         List<WebElement> games = util.getGames(driver);
 
         for (WebElement game : games) {
@@ -43,7 +43,7 @@ public class ParseTask {
 
                     String name = util.getGameName(game);
 
-                    if (!gamesName.contains(name)) { //gameService.isExists(name)
+                    if (!gameService.isExists(name) ) { //!gamesName.contains(name)
                         String timer = util.getGameTimer(game);
                         String score = util.getGameScore(game);
                         String linkToStatistics = util.getLinkToStatistics(game);
