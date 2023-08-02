@@ -29,7 +29,7 @@ public class ParseTask {
 
     Set<String> gamesName = new HashSet<>();
 
-    @Scheduled(fixedDelay = 2000)
+    @Scheduled(fixedDelay = 2500)
     public void parseGames() throws URISyntaxException, UnsupportedEncodingException {
 
 //        driver.navigate().refresh();
