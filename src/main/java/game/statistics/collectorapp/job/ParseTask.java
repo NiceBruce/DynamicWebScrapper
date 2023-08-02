@@ -3,8 +3,10 @@ package game.statistics.collectorapp.job;
 import game.statistics.collectorapp.model.Game;
 import game.statistics.collectorapp.repository.GameRepository;
 import game.statistics.collectorapp.service.GameService;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -27,13 +29,14 @@ public class ParseTask {
     @Autowired
     WebDriver driver;
 
-    Set<String> gamesName = new HashSet<>();
+    int mb = 1024 * 1024;
+
+
+
 
     @Scheduled(fixedDelay = 2500)
     public void parseGames() throws URISyntaxException, UnsupportedEncodingException {
-
-//        driver.navigate().refresh();
-//        gamesName = gameService.getGamesFromTheLastTwoHours();
+        System.out.println("MB: " + (double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024));
 
         List<WebElement> games = util.getGames(driver);
 

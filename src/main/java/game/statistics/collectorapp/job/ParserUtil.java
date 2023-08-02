@@ -1,10 +1,13 @@
 package game.statistics.collectorapp.job;
 
 import game.statistics.collectorapp.model.Game;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,11 +22,52 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ParserUtil {
 
+
     private HttpClient httpClient = HttpClient.newHttpClient();
+    private String url = "https://betcity.ru/ru/live/soccer";
+
+    public WebDriver getDriver() {
+
+        WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
+                .addArguments("--remote-allow-origins=*")
+                .addArguments("--process-per-site")
+                .addArguments("--ignore-certificate-errors")
+                .addArguments("--disable-extensions")
+                .addArguments("--disable-dev-shm-usage")
+                .addArguments("--use-gl=egl")
+                .addArguments("--no-sandbox")
+                .addArguments("--test-type")
+                .addArguments("--headless")
+                .addArguments("--incognito")
+                .addArguments("--verbose"));
+
+        wdm.setup();
+        WebDriver webDriver = wdm.create();
+//        ChromeOptions chromeOptions = new ChromeOptions()
+//                .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
+//                .addArguments("--remote-allow-origins=*")
+//                .addArguments("--process-per-site")
+//                .addArguments("--ignore-certificate-errors")
+//                .addArguments("--disable-extensions")
+//                .addArguments("--disable-dev-shm-usage")
+//                .addArguments("--use-gl=egl")
+//                .addArguments("--no-sandbox")
+//                .addArguments("--test-type")
+//                .addArguments("--headless")
+//                .addArguments("--incognito")
+//                .addArguments("--verbose");
+//
+//        System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
+//        WebDriver webDriver = new ChromeDriver(chromeOptions);
+        webDriver.get(url);
+        return webDriver;
+    }
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
 

@@ -59,6 +59,7 @@ public class SeleniumConfiguration {
                         .addArguments("--test-type")
                         .addArguments("--headless")
                         .addArguments("--incognito")
+                        .addArguments("--disk-cache-size=0")
                         .addArguments("--verbose"));
 //                .addArguments("--headless")
 //                .addArguments("--remote-allow-origins=*")
