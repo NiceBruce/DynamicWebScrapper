@@ -16,10 +16,10 @@ public class SeleniumConfiguration {
 
         WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
                         .addArguments("--remote-allow-origins=*")
+                        .addArguments("--disable-dev-shm-usage")
 //                        .addArguments("--process-per-site")
 //                        .addArguments("--ignore-certificate-errors")
 //                        .addArguments("--disable-extensions")
-//                        .addArguments("--disable-dev-shm-usage")
 //                        .addArguments("--use-gl=egl")
 //                        .addArguments("--no-sandbox")
 //                        .addArguments("--test-type")
