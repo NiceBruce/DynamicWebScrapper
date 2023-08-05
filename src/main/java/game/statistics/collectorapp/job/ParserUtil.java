@@ -30,44 +30,6 @@ public class ParserUtil {
 
 
     private HttpClient httpClient = HttpClient.newHttpClient();
-    private String url = "https://betcity.ru/ru/live/soccer";
-
-    public WebDriver getDriver() {
-
-        WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
-                .addArguments("--remote-allow-origins=*")
-                .addArguments("--process-per-site")
-                .addArguments("--ignore-certificate-errors")
-                .addArguments("--disable-extensions")
-                .addArguments("--disable-dev-shm-usage")
-                .addArguments("--use-gl=egl")
-                .addArguments("--no-sandbox")
-                .addArguments("--test-type")
-                .addArguments("--headless")
-                .addArguments("--incognito")
-                .addArguments("--verbose"));
-
-        wdm.setup();
-        WebDriver webDriver = wdm.create();
-//        ChromeOptions chromeOptions = new ChromeOptions()
-//                .setBinary(System.getenv("GOOGLE_CHROME_BIN"))
-//                .addArguments("--remote-allow-origins=*")
-//                .addArguments("--process-per-site")
-//                .addArguments("--ignore-certificate-errors")
-//                .addArguments("--disable-extensions")
-//                .addArguments("--disable-dev-shm-usage")
-//                .addArguments("--use-gl=egl")
-//                .addArguments("--no-sandbox")
-//                .addArguments("--test-type")
-//                .addArguments("--headless")
-//                .addArguments("--incognito")
-//                .addArguments("--verbose");
-//
-//        System.setProperty("webdriver.gecko.driver", System.getenv("CHROMEDRIVER_PATH"));
-//        WebDriver webDriver = new ChromeDriver(chromeOptions);
-        webDriver.get(url);
-        return webDriver;
-    }
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
 
@@ -301,13 +263,13 @@ public class ParserUtil {
                         .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=422301922&text=%s".formatted(printCurrentGame(game))))
                         .GET()
                         .build();
-
-        HttpRequest request2 = HttpRequest.newBuilder()
-                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=310019396&text=%s".formatted(printCurrentGame(game))))
-                        .GET()
-                        .build();
-
-            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-            httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
+//
+//        HttpRequest request2 = HttpRequest.newBuilder()
+//                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=310019396&text=%s".formatted(printCurrentGame(game))))
+//                        .GET()
+//                        .build();
+//
+//            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+//            httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
     }
 }
