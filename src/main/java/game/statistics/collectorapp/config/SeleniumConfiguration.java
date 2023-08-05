@@ -15,7 +15,7 @@ public class SeleniumConfiguration {
     public WebDriver driver() {
 
         WebDriverManager wdm =  WebDriverManager.chromedriver().capabilities(new ChromeOptions()
-//                        .addArguments("--remote-allow-origins=*")
+                        .addArguments("--remote-allow-origins=*")
 //                        .addArguments("--process-per-site")
 //                        .addArguments("--ignore-certificate-errors")
 //                        .addArguments("--disable-extensions")
