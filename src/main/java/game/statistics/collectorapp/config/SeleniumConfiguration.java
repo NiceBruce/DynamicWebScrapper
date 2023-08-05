@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SeleniumConfiguration {
 
-    private String url = "";
+    private String url = "https://betcity.ru/ru/live/soccer";
 
     @Bean
     public WebDriver driver() {
