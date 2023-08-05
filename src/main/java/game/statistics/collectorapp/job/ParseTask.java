@@ -34,7 +34,7 @@ public class ParseTask {
 
         System.out.println("MB: " + (double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024));
 
-        List<WebElement> games = util.getGames(driver);
+//        List<WebElement> games = util.getGames(driver);
 
 //        for (WebElement game : games) {
 //            if (util.isElementDisplayed(game)) {
