@@ -263,13 +263,13 @@ public class ParserUtil {
                         .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=422301922&text=%s".formatted(printCurrentGame(game))))
                         .GET()
                         .build();
-//
-//        HttpRequest request2 = HttpRequest.newBuilder()
-//                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=310019396&text=%s".formatted(printCurrentGame(game))))
-//                        .GET()
-//                        .build();
-//
-//            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-//            httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
+
+        HttpRequest request2 = HttpRequest.newBuilder()
+                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=310019396&text=%s".formatted(printCurrentGame(game))))
+                        .GET()
+                        .build();
+
+            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+            httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
     }
 }

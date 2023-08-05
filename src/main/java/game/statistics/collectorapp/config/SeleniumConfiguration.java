@@ -23,7 +23,7 @@ public class SeleniumConfiguration {
                         .addArguments("--use-gl=egl")
                         .addArguments("--no-sandbox")
                         .addArguments("--test-type")
-                        .addArguments("--headless")
+//                        .addArguments("--headless")
                         .addArguments("--incognito")
                         .addArguments("--disk-cache-size=0")
                         .addArguments("--verbose"));
