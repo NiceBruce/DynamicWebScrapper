@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1690479286817-1
+    id: 1691602790810-1
     author: borisdemin (generated)
     changes:
     - createTable:
@@ -21,6 +21,9 @@ databaseChangeLog:
             type: TIMESTAMP(6)
         - column:
             name: end_score
+            type: VARCHAR(255)
+        - column:
+            name: league
             type: VARCHAR(255)
         - column:
             name: link

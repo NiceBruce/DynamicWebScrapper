@@ -48,6 +48,8 @@ dependencies {
             'org.jsoup:jsoup:1.16.1',
             'org.seleniumhq.selenium:selenium-java:4.10.0',
             'io.github.bonigarcia:webdrivermanager:5.2.3',
+//            'org.telegram:telegrambots:6.7.0',
+            'org.telegram:telegrambots-spring-boot-starter:6.7.0',
             'org.springframework.boot:spring-boot-starter-data-jpa',
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-actuator',

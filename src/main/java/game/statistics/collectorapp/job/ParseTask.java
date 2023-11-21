@@ -1,26 +1,25 @@
 package game.statistics.collectorapp.job;
 
+import game.statistics.collectorapp.bot.FootballStatisticsBot;
 import game.statistics.collectorapp.model.Game;
 import game.statistics.collectorapp.repository.GameRepository;
 import game.statistics.collectorapp.service.GameService;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class ParseTask {
 
     static ParserUtil util = new ParserUtil();
+
+    @Autowired
+    public FootballStatisticsBot footballStatisticsBot;
 
     @Autowired
     GameRepository gameRepository;
@@ -32,7 +31,8 @@ public class ParseTask {
     @Scheduled(fixedDelay = 2500)
     public void parseGames() throws URISyntaxException, UnsupportedEncodingException {
 
-        System.out.println("MB: " + (double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024));
+        System.out.println("MB: " + (double) (Runtime.getRuntime().totalMemory()
+                - Runtime.getRuntime().freeMemory()) / (1024 * 1024));
 
         List<WebElement> games = util.getGames(driver);
 
@@ -58,7 +58,7 @@ public class ParseTask {
                                     .b_koef(util.getCoefficientB(game))
                                     .build());
 
-                            util.sendToTelegramm(game);
+                            util.sendToTelegramm(game, footballStatisticsBot);
                         }
                     } else {
                         if (util.getStatusGame(game)) {

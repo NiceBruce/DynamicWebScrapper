@@ -1,5 +1,6 @@
 package game.statistics.collectorapp.job;
 
+import game.statistics.collectorapp.bot.FootballStatisticsBot;
 import game.statistics.collectorapp.model.Game;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.jsoup.Jsoup;
@@ -10,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 
 import java.io.IOException;
@@ -27,6 +30,8 @@ import java.util.List;
 import java.util.Set;
 
 public class ParserUtil {
+//    @Autowired
+    public FootballStatisticsBot footballStatisticsBot;
 
 
     private HttpClient httpClient = HttpClient.newHttpClient();
@@ -219,9 +224,9 @@ public class ParserUtil {
     }
     public boolean isValidGame(String gameTimer, String gameName, String gameScore, String linkToStatistics) {
         return (gameTimer.length() != 0 && !gameTimer.equals("Перерыв"))
-//                && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70) && gameScore.equals("0:0")
-                && (((Integer.parseInt(gameTimer.substring(0, 2)) >= 65) && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70)) && gameScore.equals("0:0"))
-                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 10);
+                && (Integer.parseInt(gameTimer.substring(0, 2)) <= 90) && gameScore.equals("1:0")
+//                && (((Integer.parseInt(gameTimer.substring(0, 2)) >= 65) && (Integer.parseInt(gameTimer.substring(0, 2)) <= 70)) && gameScore.equals("0:0"))
+                && checkGoals(getOwnerName(gameName), getGuestName(gameName), linkToStatistics, 1);
     }
 
     public boolean isElementDisplayed(WebElement game) {
@@ -251,25 +256,32 @@ public class ParserUtil {
         System.out.println("________________________________________________________________________________________________________________________");
         System.out.println(timer + " " + score + " " + getOwnerName(gameName) + "-" + getGuestName(gameName) + " " + link);
         System.out.println("________________________________________________________________________________________________________________________");
-        return URLEncoder.encode("Найдена новая игра: " +getOwnerName(gameName) + " - " + getGuestName(gameName) + '\n'
+        return ("Найдена новая игра: " +getOwnerName(gameName) + " - " + getGuestName(gameName) + '\n'
                 + "Время игры " + timer + " | счет: " + score + '\n'
                 + "ТОТ-коэффициент: " + getCoefficientTOT(game) + ", Б-коэффициент: " + getCoefficientB(game) + '\n'
-                + link,  "UTF-8");
+                + link);
+
+//        return URLEncoder.encode("Найдена новая игра: " +getOwnerName(gameName) + " - " + getGuestName(gameName) + '\n'
+//                + "Время игры " + timer + " | счет: " + score + '\n'
+//                + "ТОТ-коэффициент: " + getCoefficientTOT(game) + ", Б-коэффициент: " + getCoefficientB(game) + '\n'
+//                + link,  "UTF-8");
     }
 
-    public void sendToTelegramm(WebElement game) throws URISyntaxException, UnsupportedEncodingException {
+    public void sendToTelegramm(WebElement game, FootballStatisticsBot bot) throws URISyntaxException, UnsupportedEncodingException {
 
-        HttpRequest request = HttpRequest.newBuilder()
-                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=422301922&text=%s".formatted(printCurrentGame(game))))
-                        .GET()
-                        .build();
+//        bot.sendMessage(printCurrentGame(game));
 
-        HttpRequest request2 = HttpRequest.newBuilder()
-                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=310019396&text=%s".formatted(printCurrentGame(game))))
-                        .GET()
-                        .build();
+//        HttpRequest request = HttpRequest.newBuilder()
+//                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=422301922&text=%s".formatted(printCurrentGame(game))))
+//                        .GET()
+//                        .build();
 
-            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-            httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
+//        HttpRequest request2 = HttpRequest.newBuilder()
+//                            .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=310019396&text=%s".formatted(printCurrentGame(game))))
+//                        .GET()
+//                        .build();
+//
+//            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+//            httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
     }
 }

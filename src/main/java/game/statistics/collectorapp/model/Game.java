@@ -40,6 +40,8 @@ public class Game {
 
     private String b_koef;
 
+    private String league;
+
     @NotNull
     @NotBlank
     private String timer;
