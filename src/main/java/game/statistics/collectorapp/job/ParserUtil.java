@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ParserUtil {
-//    @Autowired
+    private static final String TELEGRAMM_USER_ID = "YOU TELEGRAMM ID";
     public FootballStatisticsBot footballStatisticsBot;
 
 
@@ -260,28 +260,19 @@ public class ParserUtil {
                 + "Время игры " + timer + " | счет: " + score + '\n'
                 + "ТОТ-коэффициент: " + getCoefficientTOT(game) + ", Б-коэффициент: " + getCoefficientB(game) + '\n'
                 + link);
-
-//        return URLEncoder.encode("Найдена новая игра: " +getOwnerName(gameName) + " - " + getGuestName(gameName) + '\n'
-//                + "Время игры " + timer + " | счет: " + score + '\n'
-//                + "ТОТ-коэффициент: " + getCoefficientTOT(game) + ", Б-коэффициент: " + getCoefficientB(game) + '\n'
-//                + link,  "UTF-8");
     }
 
     public void sendToTelegramm(WebElement game, FootballStatisticsBot bot) throws URISyntaxException, UnsupportedEncodingException {
 
-//        bot.sendMessage(printCurrentGame(game));
+        bot.sendMessage(printCurrentGame(game));
 
+//   -- OLD METHOD
 //        HttpRequest request = HttpRequest.newBuilder()
-//                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=422301922&text=%s".formatted(printCurrentGame(game))))
-//                        .GET()
-//                        .build();
-
-//        HttpRequest request2 = HttpRequest.newBuilder()
-//                            .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=310019396&text=%s".formatted(printCurrentGame(game))))
+//                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=%s&text=%s"
+//                                .formatted(TELEGRAMM_USER_ID,printCurrentGame(game))))
 //                        .GET()
 //                        .build();
 //
 //            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-//            httpClient.sendAsync(request2, HttpResponse.BodyHandlers.ofString());
     }
 }

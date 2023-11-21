@@ -8,13 +8,15 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
 public class FootballStatisticsBot extends TelegramWebhookBot {
+
+    private static final String TELEGRAMM_USER_ID = "YOU_TELEGRAMM_ID"; // Type your telegrammId here
     private String botHookPath;
     private String botUserName;
     private String botToken;
 
 
     public void sendMessage(String text) {
-        var sendMessage = new SendMessage("422301922", text);
+        var sendMessage = new SendMessage(TELEGRAMM_USER_ID, text);
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
@@ -26,10 +28,9 @@ public class FootballStatisticsBot extends TelegramWebhookBot {
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             long chatId = update.getMessage().getChatId();
-            var sendMessage = new SendMessage("422301922", "Hi Borya!");
 
             try {
-                execute(new SendMessage("422301922", "Hi " + update.getMessage().getText() + "!"));
+                execute(new SendMessage(TELEGRAMM_USER_ID, update.getMessage().getText()));
             } catch (TelegramApiException e) {
                 throw new RuntimeException(e);
             }
