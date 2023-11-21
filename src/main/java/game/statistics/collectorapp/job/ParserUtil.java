@@ -2,32 +2,19 @@ package game.statistics.collectorapp.job;
 
 import game.statistics.collectorapp.bot.FootballStatisticsBot;
 import game.statistics.collectorapp.model.Game;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ParserUtil {
     private static final String TELEGRAMM_USER_ID = "YOU TELEGRAMM ID";
@@ -237,12 +224,6 @@ public class ParserUtil {
                 return false;
             }
         } catch (Exception e) {
-//            if (e instanceof StaleElementReferenceException) {
-//                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ НЕ ПРЕДСТАВЛЕН В DOM! - %s".formatted(e.getMessage()));
-//            } else if (e instanceof WebDriverException) {
-//                LOGGER.error("ВНИМАНИЕ! ЭЛЕМЕНТ ИГРЫ НЕ ПРЕДСТАВЛЕН В DOM! - %s".formatted(e.getMessage()));
-//            }
-
             return false;
         }
     }
@@ -263,16 +244,6 @@ public class ParserUtil {
     }
 
     public void sendToTelegramm(WebElement game, FootballStatisticsBot bot) throws URISyntaxException, UnsupportedEncodingException {
-
         bot.sendMessage(printCurrentGame(game));
-
-//   -- OLD METHOD
-//        HttpRequest request = HttpRequest.newBuilder()
-//                        .uri(new URI("https://api.telegram.org/bot1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0/sendMessage?chat_id=%s&text=%s"
-//                                .formatted(TELEGRAMM_USER_ID,printCurrentGame(game))))
-//                        .GET()
-//                        .build();
-//
-//            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
     }
 }
