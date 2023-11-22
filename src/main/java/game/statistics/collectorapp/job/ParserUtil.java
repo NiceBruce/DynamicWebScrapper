@@ -17,13 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParserUtil {
-    private static final String TELEGRAMM_USER_ID = "YOU TELEGRAMM ID";
     public FootballStatisticsBot footballStatisticsBot;
 
 
     private HttpClient httpClient = HttpClient.newHttpClient();
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
+    public final Logger LOGGER = LoggerFactory.getLogger(Game.class);
 
     public boolean checkGoals(String owner, String guest, String linkToStatistics, int goals) {
         int countOwnerGoals = 0;

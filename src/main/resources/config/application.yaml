@@ -25,6 +25,6 @@ spring:
         enabled: true
 
 bot:
-  botToken: 1114352987:AAG8IzQuuMd8qIzEbcNEuaZFqQX5ifsEBI0
+  botToken:  YOUR:BOT_TOKEN
   botUserName: football_statistic_bot
   botHookPath: https://b57e-178-72-76-194.ngrok.io
